@@ -1,15 +1,20 @@
 const fs = require("fs");
 
-function readFile(fileName, separator = "\n") {
+function readFile({ fileName, separator = "\n", trimmed = false }) {
   const inputFile = fs.readFileSync(`./${fileName}`, {
     encoding: "utf-8",
   });
 
-  return inputFile.split(separator);
+  const lines = inputFile.split(separator);
+  return trimmed ? trimValues(lines) : lines;
 }
 
 function arraySum(array) {
   return array.reduce((sum, item) => item + sum, 0);
+}
+
+function trimValues(array) {
+  return array.map((value) => value.trim());
 }
 
 module.exports = {
